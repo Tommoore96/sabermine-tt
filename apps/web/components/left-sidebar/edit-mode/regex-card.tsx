@@ -1,10 +1,12 @@
 "use client";
 
+import { useRegexStore } from "@/hooks/use-counter-store";
+import { RegexExpression } from "@workspace/types";
+import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardAction,
   CardContent,
-  CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
 import {
@@ -13,12 +15,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import { RegexExpression } from "@workspace/types";
+import { MoreVerticalIcon } from "lucide-react";
 import { useState } from "react";
-import RegexForm from "./edit-mode/regex-form";
-import { MoreHorizontalIcon, MoreVerticalIcon } from "lucide-react";
-import { Button } from "@workspace/ui/components/button";
-import { useRegexStore } from "@/hooks/use-counter-store";
+import RegexForm from "./regex-form";
 
 export default function RegexCard({
   expression,
