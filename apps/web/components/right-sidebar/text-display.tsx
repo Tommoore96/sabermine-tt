@@ -21,10 +21,10 @@ export default function TextDisplay({
   );
 
   const originalText = useRegexStore((state) => state.originalText);
-  const setOriginalText = useRegexStore((state) => state.setOriginalText);
+  const setText = useRegexStore((state) => state.setText);
 
   useEffect(() => {
-    setOriginalText(lorem);
+    setText(lorem);
   }, []);
 
   if (!regexExpression && !!regexExpressionId) {
@@ -35,7 +35,7 @@ export default function TextDisplay({
     <Textarea
       className="w-full min-h-full"
       value={originalText}
-      onChange={(e) => setOriginalText(e.target.value)}
+      onChange={(e) => setText(e.target.value)}
       spellCheck={false}
     />
   );

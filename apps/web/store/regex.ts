@@ -11,7 +11,8 @@ export type RegexActions = {
   addExpression: (expression: RegexExpression) => void;
   removeExpression: (expression: RegexExpression) => void;
   updateExpression: (expression: RegexExpression) => void;
-  setOriginalText: (text: string) => void;
+  setText: (text: string) => void;
+  clearAllApprovals: () => void;
 };
 
 export type RegexStore = RegexState & RegexActions;
@@ -40,7 +41,22 @@ export const createRegexStore = (initState: RegexState = defaultInitState) => {
               e.id === expression.id ? expression : e
             ),
           })),
-        setOriginalText: (text: string) => set({ originalText: text }),
+        setText: (text: string) =>
+          set((state) => ({
+            originalText: text,
+            // Clear all approvals when text changes
+            expressions: state.expressions.map((expr) => ({
+              ...expr,
+              isApproved: false,
+            })),
+          })),
+        clearAllApprovals: () =>
+          set((state) => ({
+            expressions: state.expressions.map((expr) => ({
+              ...expr,
+              isApproved: false,
+            })),
+          })),
       }),
       {
         name: "regex-store",

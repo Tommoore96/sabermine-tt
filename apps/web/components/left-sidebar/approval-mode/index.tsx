@@ -2,6 +2,7 @@
 
 import { useRegexStore } from "@/hooks/use-counter-store";
 import { Label } from "@workspace/ui/components/label";
+import { Button } from "@workspace/ui/components/button";
 import {
   Select,
   SelectContent,
@@ -12,6 +13,8 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import MatchingExpressions from "./matching-expressions";
+import { Badge } from "@workspace/ui/components/badge";
+import { BadgeCheckIcon } from "lucide-react";
 
 const formSchema = z.object({
   regexExpressionId: z.string(),
@@ -19,11 +22,25 @@ const formSchema = z.object({
 
 export default function ApprovalMode() {
   const regexExpressions = useRegexStore((state) => state.expressions);
+  const updateExpression = useRegexStore((state) => state.updateExpression);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const defaultRegexExpressionId =
     searchParams.get("regexExpressionId") ?? undefined;
+
+  const currentExpression = regexExpressions.find(
+    (expr) => expr.id === defaultRegexExpressionId
+  );
+
+  const handleApprove = () => {
+    if (currentExpression) {
+      updateExpression({
+        ...currentExpression,
+        isApproved: true,
+      });
+    }
+  };
 
   const handleRegexExpressionChange = (value: string) => {
     router.push(`/?mode=approval&regexExpressionId=${value}`);
@@ -42,15 +59,33 @@ export default function ApprovalMode() {
         <SelectContent>
           {regexExpressions.map((regex) => (
             <SelectItem key={regex.id} value={regex.id}>
-              {regex.name}
+              {regex.name} {regex.isApproved ? "✅" : ""}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
+
       {defaultRegexExpressionId && (
-        <MatchingExpressions
-          defaultRegexExpressionId={defaultRegexExpressionId}
-        />
+        <div className="flex flex-col gap-2">
+          <MatchingExpressions
+            defaultRegexExpressionId={defaultRegexExpressionId}
+          />
+
+          {currentExpression && !currentExpression.isApproved && (
+            <Button onClick={handleApprove} className="mt-2">
+              Approve
+            </Button>
+          )}
+
+          {currentExpression?.isApproved && (
+            <Badge
+              variant="secondary"
+              className="mt-2 bg-green-600 flex items-center gap-1 p-1"
+            >
+              <BadgeCheckIcon size={12} /> Approved
+            </Badge>
+          )}
+        </div>
       )}
     </div>
   );
