@@ -1,12 +1,30 @@
-import { Button } from "@workspace/ui/components/button"
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@workspace/ui/components/resizable";
+import { Mode } from "@/types";
+import LeftSidebar from "@/components/left-sidebar";
+import RightSidebar from "@/components/right-sidebar";
 
-export default function Page() {
+interface PageProps {
+  searchParams: { mode?: Mode };
+}
+
+export default function Page({ searchParams }: PageProps) {
+  const currentMode = searchParams.mode ?? "edit";
+
   return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button size="sm">Button</Button>
-      </div>
+    <div className="flex items-center h-svh p-4">
+      <ResizablePanelGroup direction="horizontal" className="w-full h-full">
+        <ResizablePanel className="pr-4" defaultSize={40}>
+          <LeftSidebar currentMode={currentMode} />
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel className="pl-4" defaultSize={60}>
+          <RightSidebar />
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
-  )
+  );
 }
