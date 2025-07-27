@@ -11,14 +11,9 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select";
 import { useRouter, useSearchParams } from "next/navigation";
-import { z } from "zod";
 import MatchingExpressions from "./matching-expressions";
 import { Badge } from "@workspace/ui/components/badge";
 import { BadgeCheckIcon } from "lucide-react";
-
-const formSchema = z.object({
-  regexExpressionId: z.string(),
-});
 
 export default function ApprovalMode() {
   const regexExpressions = useRegexStore((state) => state.expressions);

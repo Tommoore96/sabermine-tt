@@ -1,3 +1,5 @@
+"use client";
+
 import { useRegexStore } from "@/hooks/use-counter-store";
 import { Card } from "@workspace/ui/components/card";
 

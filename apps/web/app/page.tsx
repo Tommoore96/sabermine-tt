@@ -9,18 +9,17 @@ import RightSidebarWrapper from "@/components/right-sidebar/wrapper";
 import TextDisplay from "@/components/right-sidebar/text-display";
 
 interface PageProps {
-  searchParams: Promise<{ mode?: Mode; regexExpressionId?: string }>;
+  searchParams: Promise<{ regexExpressionId?: string }>;
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  const { mode, regexExpressionId } = await searchParams;
-  const currentMode = mode ?? "edit";
+  const { regexExpressionId } = await searchParams;
 
   return (
     <div className="flex items-center h-svh p-4">
       <ResizablePanelGroup direction="horizontal" className="w-full h-full">
         <ResizablePanel className="pr-4" defaultSize={40}>
-          <LeftSidebar currentMode={currentMode} />
+          <LeftSidebar />
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel className="pl-4" defaultSize={60}>

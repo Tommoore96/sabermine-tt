@@ -8,30 +8,31 @@ import { Mode } from "@/types";
 import SelectMode from "./select-mode-form";
 import EditMode from "./edit-mode";
 import ApprovalMode from "./approval-mode";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@workspace/ui/components/tabs";
 
-export const MODES = {
-  edit: {
-    mode: "edit",
-    title: "Edit Mode",
-  },
-  approval: {
-    mode: "approval",
-    title: "Approval Mode",
-  },
-} as const;
-
-export default function Modes({ currentMode }: { currentMode: Mode }) {
-  const modeConfig = MODES[currentMode];
-
+export default function Modes() {
   return (
     <Card className="w-full h-full">
-      <CardHeader>
-        <CardTitle>{modeConfig.title}</CardTitle>
-      </CardHeader>
       <CardContent className="flex flex-col gap-4 overflow-y-auto">
-        <SelectMode defaultMode={currentMode} />
-        {currentMode === "edit" && <EditMode />}
-        {currentMode === "approval" && <ApprovalMode />}
+        <Tabs defaultValue="edit">
+          <TabsList>
+            <TabsTrigger value="edit">Edit</TabsTrigger>
+            <TabsTrigger value="approval">Approval</TabsTrigger>
+          </TabsList>
+          <TabsContent value="edit" className="flex flex-col gap-4">
+            <CardTitle>Edit your regex patterns</CardTitle>
+            <EditMode />
+          </TabsContent>
+          <TabsContent value="approval" className="flex flex-col gap-4">
+            <CardTitle>Check and approve your regex patterns</CardTitle>
+            <ApprovalMode />
+          </TabsContent>
+        </Tabs>
       </CardContent>
     </Card>
   );
