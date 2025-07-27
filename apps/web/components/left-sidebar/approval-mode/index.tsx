@@ -11,6 +11,7 @@ import {
 } from "@workspace/ui/components/select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
+import MatchingExpressions from "./matching-expressions";
 
 const formSchema = z.object({
   regexExpressionId: z.string(),
@@ -46,6 +47,11 @@ export default function ApprovalMode() {
           ))}
         </SelectContent>
       </Select>
+      {defaultRegexExpressionId && (
+        <MatchingExpressions
+          defaultRegexExpressionId={defaultRegexExpressionId}
+        />
+      )}
     </div>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useRegexStore } from "@/hooks/use-counter-store";
-import { useEffect, useRef, useState } from "react";
-import { loremIpsum } from "lorem-ipsum";
 import { Textarea } from "@workspace/ui/components/textarea";
+import { loremIpsum } from "lorem-ipsum";
+import { useEffect } from "react";
 
 const lorem = loremIpsum({
   count: 3,
@@ -36,6 +36,7 @@ export default function TextDisplay({
       className="w-full min-h-full"
       value={originalText}
       onChange={(e) => setOriginalText(e.target.value)}
+      spellCheck={false}
     />
   );
 }
