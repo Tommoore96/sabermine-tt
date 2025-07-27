@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import { Card } from "@workspace/ui/components/card";
 
 export default function MatchingExpressions({

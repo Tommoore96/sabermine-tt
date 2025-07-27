@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import { Label } from "@workspace/ui/components/label";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select";
 import { useRouter, useSearchParams } from "next/navigation";
-import MatchingExpressions from "./matching-expressions";
+import MatchingExpressions from "./matching-expressions.js";
 import { Badge } from "@workspace/ui/components/badge";
 import { BadgeCheckIcon } from "lucide-react";
 

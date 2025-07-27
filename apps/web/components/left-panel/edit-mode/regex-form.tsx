@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@workspace/ui/components/button";
 import {

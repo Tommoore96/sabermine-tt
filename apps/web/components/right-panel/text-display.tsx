@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import { Textarea } from "@workspace/ui/components/textarea";
 import { loremIpsum } from "lorem-ipsum";
 import { useEffect } from "react";
