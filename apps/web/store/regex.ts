@@ -13,6 +13,7 @@ export type RegexActions = {
   updateExpression: (expression: RegexExpression) => void;
   setText: (text: string) => void;
   clearAllApprovals: () => void;
+  deleteExpression: (id: string) => void;
 };
 
 export type RegexStore = RegexState & RegexActions;
@@ -56,6 +57,10 @@ export const createRegexStore = (initState: RegexState = defaultInitState) => {
               ...expr,
               isApproved: false,
             })),
+          })),
+        deleteExpression: (id: string) =>
+          set((state) => ({
+            expressions: state.expressions.filter((e) => e.id !== id),
           })),
       }),
       {
