@@ -1,5 +1,5 @@
-import RegexForm from "./forms/regex";
-import RegexList from "./regex-list";
+import RegexForm from "./regex-form";
+import RegexList from "../regex-list";
 
 export default function EditMode() {
   return (

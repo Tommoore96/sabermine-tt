@@ -10,7 +10,7 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { RegexExpression } from "@workspace/types";
 import { useState } from "react";
-import RegexForm from "./forms/regex";
+import RegexForm from "./edit-mode/regex-form";
 
 export default function RegexCard({
   expression,

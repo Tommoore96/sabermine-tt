@@ -5,8 +5,9 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { Mode } from "@/types";
-import SelectMode from "./forms/select-mode";
+import SelectMode from "./select-mode-form";
 import EditMode from "./edit-mode";
+import ApprovalMode from "./approval-mode";
 
 export const MODES = {
   edit: {
@@ -27,9 +28,10 @@ export default function Modes({ currentMode }: { currentMode: Mode }) {
       <CardHeader>
         <CardTitle>{modeConfig.title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-4 overflow-y-auto">
         <SelectMode defaultMode={currentMode} />
         {currentMode === "edit" && <EditMode />}
+        {currentMode === "approval" && <ApprovalMode />}
       </CardContent>
     </Card>
   );

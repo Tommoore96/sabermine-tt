@@ -5,14 +5,16 @@ import {
 } from "@workspace/ui/components/resizable";
 import { Mode } from "@/types";
 import LeftSidebar from "@/components/left-sidebar";
-import RightSidebar from "@/components/right-sidebar";
+import RightSidebarWrapper from "@/components/right-sidebar/wrapper";
+import TextDisplay from "@/components/right-sidebar/text-display";
 
 interface PageProps {
-  searchParams: { mode?: Mode };
+  searchParams: Promise<{ mode?: Mode; regexExpressionId?: string }>;
 }
 
-export default function Page({ searchParams }: PageProps) {
-  const currentMode = searchParams.mode ?? "edit";
+export default async function Page({ searchParams }: PageProps) {
+  const { mode, regexExpressionId } = await searchParams;
+  const currentMode = mode ?? "edit";
 
   return (
     <div className="flex items-center h-svh p-4">
@@ -22,7 +24,9 @@ export default function Page({ searchParams }: PageProps) {
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel className="pl-4" defaultSize={60}>
-          <RightSidebar />
+          <RightSidebarWrapper>
+            <TextDisplay regexExpressionId={regexExpressionId} />
+          </RightSidebarWrapper>
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
