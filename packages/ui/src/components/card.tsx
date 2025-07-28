@@ -1,28 +1,13 @@
 import * as React from "react";
 
 import { cn } from "@workspace/ui/lib/utils";
-import { tv } from "tailwind-variants";
-
-const cardVariants = tv({
-  slots: {
-    card: "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
-    header:
-      "container/card-headergrid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-    title: "leading-none font-semibold",
-    description: "text-muted-foreground text-sm",
-    action: "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-    content: "px-6",
-    footer: "flex items-center px-6 [.border-t]:pt-6",
-  },
-});
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
-  const { card } = cardVariants({ className });
   return (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm small-card:gap-2 small-card:py-2 small-card:px-2 small-card:text-sm",
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm small:gap-2 small:py-2 small:px-2 small:text-sm",
         className
       )}
       {...props}
@@ -31,7 +16,6 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  const { header } = cardVariants({ className });
   return (
     <div
       data-slot="card-header"
@@ -58,10 +42,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
-      className={cn(
-        "text-muted-foreground text-sm small-card:text-xs",
-        className
-      )}
+      className={cn("text-muted-foreground text-sm small:text-xs", className)}
       {...props}
     />
   );

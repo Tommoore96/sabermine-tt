@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import RegexCard from "./regex-card";
 
 export default function RegexList() {

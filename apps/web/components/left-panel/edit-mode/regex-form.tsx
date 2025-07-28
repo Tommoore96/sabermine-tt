@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
 import { cn } from "@workspace/ui/lib/utils";
@@ -17,7 +18,22 @@ import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1),
-  regex: z.string().min(1),
+  regex: z
+    .string()
+    .min(1)
+    .refine(
+      (value) => {
+        try {
+          new RegExp(value);
+          return true;
+        } catch {
+          return false;
+        }
+      },
+      {
+        message: "Invalid regex pattern",
+      }
+    ),
 });
 
 export type RegexFormProps = {
@@ -36,12 +52,14 @@ export default function RegexForm({
   onSubmit,
 }: RegexFormProps) {
   const isEditing = !!id;
-  console.log("🚀 ~ RegexForm ~ isEditing:", isEditing);
   const formId = `regex-form-${id ?? "new"}`;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    defaultValues: defaultValues ?? {
+      name: "",
+      regex: "",
+    },
   });
 
   const addRegex = useRegexStore((state) => state.addExpression);
@@ -55,8 +73,6 @@ export default function RegexForm({
         pattern: data.regex,
         isApproved: false,
       });
-      onSubmit?.(data);
-      form.reset();
     } else {
       addRegex({
         id: id ?? crypto.randomUUID(),
@@ -64,9 +80,9 @@ export default function RegexForm({
         pattern: data.regex,
         isApproved: false,
       });
-      onSubmit?.(data);
-      form.reset();
     }
+    onSubmit?.(data);
+    form.reset();
   };
 
   return (
@@ -86,6 +102,7 @@ export default function RegexForm({
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -98,6 +115,7 @@ export default function RegexForm({
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />

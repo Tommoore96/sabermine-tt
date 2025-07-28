@@ -1,13 +1,15 @@
 "use client";
 
-import { useRegexStore } from "@/hooks/use-counter-store";
+import { useRegexStore } from "@/hooks/use-regex-store";
 import { Card } from "@workspace/ui/components/card";
+
+export type MatchingExpressionsProps = {
+  defaultRegexExpressionId: string;
+};
 
 export default function MatchingExpressions({
   defaultRegexExpressionId,
-}: {
-  defaultRegexExpressionId: string;
-}) {
+}: MatchingExpressionsProps) {
   const originalText = useRegexStore((state) => state.originalText);
 
   const currentRegexExpression = useRegexStore((state) =>
@@ -15,7 +17,7 @@ export default function MatchingExpressions({
   );
 
   if (!currentRegexExpression) {
-    throw new Error("Regex expression not found");
+    return <div>No regex expression found</div>;
   }
 
   const matches = Array.from(
@@ -29,7 +31,7 @@ export default function MatchingExpressions({
   return (
     <div className="flex gap-2 flex-wrap">
       {matches.map((match, index) => (
-        <Card className="small-card" key={index}>
+        <Card className="small" key={index}>
           {match[0]}
         </Card>
       ))}

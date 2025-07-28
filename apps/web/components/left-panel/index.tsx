@@ -1,35 +1,32 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@workspace/ui/components/card";
-import { Mode } from "@/types";
-import SelectMode from "./select-mode-form";
-import EditMode from "./edit-mode";
-import ApprovalMode from "./approval-mode";
+import { Card, CardContent } from "@workspace/ui/components/card";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@workspace/ui/components/tabs";
+import ApprovalMode from "./approval-mode/index";
+import EditMode from "./edit-mode/index";
 
-export default function Modes() {
+export default function LeftPanel() {
   return (
     <Card className="w-full h-full">
       <CardContent className="flex flex-col gap-4 overflow-y-auto">
-        <Tabs defaultValue="edit">
+        <Tabs defaultValue="edit" className="flex flex-col gap-4">
           <TabsList>
             <TabsTrigger value="edit">Edit</TabsTrigger>
             <TabsTrigger value="approval">Approval</TabsTrigger>
           </TabsList>
           <TabsContent value="edit" className="flex flex-col gap-4">
-            <CardTitle>Edit your regex patterns</CardTitle>
+            <h2 className="text-lg font-bold">
+              Add and edit your regex patterns
+            </h2>
             <EditMode />
           </TabsContent>
           <TabsContent value="approval" className="flex flex-col gap-4">
-            <CardTitle>Check and approve your regex patterns</CardTitle>
+            <h2 className="text-lg font-bold">
+              Check and approve your regex patterns
+            </h2>
             <ApprovalMode />
           </TabsContent>
         </Tabs>

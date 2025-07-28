@@ -1,13 +1,12 @@
 @import "tailwindcss";
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
+
 @source "../**/*.{ts,tsx}";
 
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
-@custom-variant small-card (&:is(.small-card, .small-card *));
+@custom-variant small (&:is(.small, .small *));
 
 :root {
   --background: oklch(1 0 0);
