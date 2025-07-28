@@ -36,7 +36,6 @@ export default function RegexForm({
   onSubmit,
 }: RegexFormProps) {
   const isEditing = !!id;
-  console.log("🚀 ~ RegexForm ~ isEditing:", isEditing);
   const formId = `regex-form-${id ?? "new"}`;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -55,8 +54,6 @@ export default function RegexForm({
         pattern: data.regex,
         isApproved: false,
       });
-      onSubmit?.(data);
-      form.reset();
     } else {
       addRegex({
         id: id ?? crypto.randomUUID(),
@@ -64,9 +61,9 @@ export default function RegexForm({
         pattern: data.regex,
         isApproved: false,
       });
-      onSubmit?.(data);
-      form.reset();
     }
+    onSubmit?.(data);
+    form.reset();
   };
 
   return (

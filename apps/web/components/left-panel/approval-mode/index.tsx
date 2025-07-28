@@ -1,8 +1,9 @@
 "use client";
 
 import { useRegexStore } from "@/hooks/use-regex-store";
-import { Label } from "@workspace/ui/components/label";
+import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
+import { Label } from "@workspace/ui/components/label";
 import {
   Select,
   SelectContent,
@@ -10,10 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
-import { useRouter, useSearchParams } from "next/navigation";
-import MatchingExpressions from "./matching-expressions.js";
-import { Badge } from "@workspace/ui/components/badge";
 import { BadgeCheckIcon } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import MatchingExpressions from "./matching-expressions";
 
 export default function ApprovalMode() {
   const regexExpressions = useRegexStore((state) => state.expressions);
@@ -46,7 +46,7 @@ export default function ApprovalMode() {
       <Label htmlFor="regexExpression">Regex Expression</Label>
       <Select
         onValueChange={handleRegexExpressionChange}
-        defaultValue={defaultRegexExpressionId}
+        defaultValue={currentExpression?.id}
       >
         <SelectTrigger className="w-full" id="regexExpression">
           <SelectValue placeholder="Select a regex expression" />

@@ -1,5 +1,5 @@
 import { createStore } from "zustand/vanilla";
-import type { RegexExpression } from "@workspace/types";
+import { RegexExpression } from "@workspace/types";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 export type RegexState = {
@@ -9,7 +9,6 @@ export type RegexState = {
 
 export type RegexActions = {
   addExpression: (expression: RegexExpression) => void;
-  removeExpression: (expression: RegexExpression) => void;
   updateExpression: (expression: RegexExpression) => void;
   setText: (text: string) => void;
   clearAllApprovals: () => void;
@@ -30,12 +29,6 @@ export const createRegexStore = (initState: RegexState = defaultInitState) => {
         ...initState,
         addExpression: (expression: RegexExpression) =>
           set((state) => ({ expressions: [...state.expressions, expression] })),
-        removeExpression: (expression: RegexExpression) =>
-          set((state) => ({
-            expressions: state.expressions.filter(
-              (e) => e.id !== expression.id
-            ),
-          })),
         updateExpression: (expression: RegexExpression) =>
           set((state) => ({
             expressions: state.expressions.map((e) =>
@@ -45,7 +38,6 @@ export const createRegexStore = (initState: RegexState = defaultInitState) => {
         setText: (text: string) =>
           set((state) => ({
             originalText: text,
-            // Clear all approvals when text changes
             expressions: state.expressions.map((expr) => ({
               ...expr,
               isApproved: false,

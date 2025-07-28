@@ -17,17 +17,17 @@ import {
 } from "@workspace/ui/components/dropdown-menu";
 import { MoreVerticalIcon } from "lucide-react";
 import { useState } from "react";
-import RegexForm from "./regex-form.js";
+import RegexForm from "./regex-form";
 
-export default function RegexCard({
-  expression,
-}: {
+export type RegexCardProps = {
   expression: RegexExpression;
-}) {
+};
+
+export default function RegexCard({ expression }: RegexCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const deleteExpression = useRegexStore((state) => state.deleteExpression);
   return (
-    <Card key={expression.id} className="small-card">
+    <Card key={expression.id} className="small">
       {isEditing ? (
         <CardContent>
           <RegexForm

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRegexStore } from "@/hooks/use-regex-store";
-import RegexCard from "./regex-card.js";
+import RegexCard from "./regex-card";
 
 export default function RegexList() {
   const expressions = useRegexStore((state) => state.expressions);

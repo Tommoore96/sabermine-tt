@@ -4,13 +4,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import TextDisplay from "./text-display.js";
+import TextDisplay from "./text-display";
 
 export type RightPanelProps = {
   regexExpressionId: string | undefined;
 };
 
-export default async function RightSidebar({
+export default async function RightPanel({
   regexExpressionId,
 }: RightPanelProps) {
   return (

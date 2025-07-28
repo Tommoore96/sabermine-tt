@@ -1,7 +1,7 @@
 "use client";
 
+import { createRegexStore } from "@/store/regex";
 import { createContext, useRef } from "react";
-import { type RegexStore, createRegexStore } from "@/store/regex";
 
 export type RegexStoreApi = ReturnType<typeof createRegexStore>;
 
