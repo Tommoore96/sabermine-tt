@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
 import { cn } from "@workspace/ui/lib/utils";
@@ -17,7 +18,22 @@ import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1),
-  regex: z.string().min(1),
+  regex: z
+    .string()
+    .min(1)
+    .refine(
+      (value) => {
+        try {
+          new RegExp(value);
+          return true;
+        } catch {
+          return false;
+        }
+      },
+      {
+        message: "Invalid regex pattern",
+      }
+    ),
 });
 
 export type RegexFormProps = {
@@ -40,7 +56,10 @@ export default function RegexForm({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    defaultValues: defaultValues ?? {
+      name: "",
+      regex: "",
+    },
   });
 
   const addRegex = useRegexStore((state) => state.addExpression);
@@ -83,6 +102,7 @@ export default function RegexForm({
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -95,6 +115,7 @@ export default function RegexForm({
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
