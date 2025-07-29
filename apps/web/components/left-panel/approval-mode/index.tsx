@@ -38,7 +38,7 @@ export default function ApprovalMode() {
   };
 
   const handleRegexExpressionChange = (value: string) => {
-    router.push(`/?mode=approval&regexExpressionId=${value}`);
+    router.push(`/?regexExpressionId=${value}`);
   };
 
   return (
