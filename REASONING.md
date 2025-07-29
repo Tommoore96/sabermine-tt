@@ -1,3 +1,15 @@
+#### EDIT
+
+Having thought about ways to improve the mobile experience I've came up with the idea of changing the panels from being side by side (horizontal) to on top of eachother (vertical) on smaller viewports.
+
+This change is in the PR/branch [mobile-view](https://github.com/Tommoore96/sabermine-tt/pull/3).
+
+I also think it's important to mention that it is an conscious choice not to use much of NextJS's routing features. It's not only unnecessary for the way the app is managed, it's also much slower than using the `Tabs` component. I have however utilised the router for saving the regular expression id as a search param, I thought it was a better UX for switching between the edit and approval mode if the approval mode maintained the same regular expression. This way users could quickly see the outcome of their changes in the edit mode.
+
+Zustand could also have been used to share this bit of information across the two panels, but it doesn't provide much visibility to the user & I wanted to show how I like the pattern of preserving state in the URL where I can.
+
+---
+
 # Reasoning
 
 Here I'll explain my reasoning for the tech stack and component patterns used in this project. I've tried to keep it as simple as possible and avoid over-engineering, but at the same time I've made it extensible for future use, and in a way that I would likely use in real projects for a scaling startup.
