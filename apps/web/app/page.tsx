@@ -15,12 +15,12 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <div className="flex items-center h-svh p-4">
-      <ResizablePanelGroup direction="horizontal" className="w-full h-full">
-        <ResizablePanel className="pr-4" defaultSize={40}>
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel defaultSize={40}>
           <LeftPanel />
         </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel className="pl-4" defaultSize={60}>
+        <ResizableHandle withHandle className="m-4" />
+        <ResizablePanel defaultSize={60}>
           <RightPanel regexExpressionId={regexExpressionId} />
         </ResizablePanel>
       </ResizablePanelGroup>

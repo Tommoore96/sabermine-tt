@@ -5,11 +5,16 @@ import { GripVerticalIcon } from "lucide-react"
 import * as ResizablePrimitive from "react-resizable-panels"
 
 import { cn } from "@workspace/ui/lib/utils"
+import { useMediaQuery } from "../hooks/use-media-query.js"
 
 function ResizablePanelGroup({
   className,
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) {
+  const { direction = "horizontal", ...rest } = props
+
+  const matches = useMediaQuery("(max-width: 375px)")
+
   return (
     <ResizablePrimitive.PanelGroup
       data-slot="resizable-panel-group"
@@ -17,7 +22,8 @@ function ResizablePanelGroup({
         "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
         className
       )}
-      {...props}
+      direction={matches ? "vertical" : direction}
+      {...rest}
     />
   )
 }
