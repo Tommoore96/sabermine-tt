@@ -1,37 +1,60 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { GripVerticalIcon } from "lucide-react"
-import * as ResizablePrimitive from "react-resizable-panels"
+import * as React from "react";
+import { GripVerticalIcon } from "lucide-react";
+import * as ResizablePrimitive from "react-resizable-panels";
 
-import { cn } from "@workspace/ui/lib/utils"
-import { useMediaQuery } from "../hooks/use-media-query.js"
+import { cn } from "@workspace/ui/lib/utils";
+
+interface ResponsiveResizablePanelGroupProps
+  extends Omit<
+    React.ComponentProps<typeof ResizablePrimitive.PanelGroup>,
+    "direction"
+  > {
+  direction?: "horizontal" | "vertical";
+  mobileDirection?: "horizontal" | "vertical";
+}
 
 function ResizablePanelGroup({
   className,
+  direction = "horizontal",
+  mobileDirection = "vertical",
+  children,
   ...props
-}: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) {
-  const { direction = "horizontal", ...rest } = props
-
-  const matches = useMediaQuery("(max-width: 375px)")
-
+}: ResponsiveResizablePanelGroupProps) {
   return (
-    <ResizablePrimitive.PanelGroup
-      data-slot="resizable-panel-group"
-      className={cn(
-        "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
-        className
-      )}
-      direction={matches ? "vertical" : direction}
-      {...rest}
-    />
-  )
+    <>
+      {/* Desktop version */}
+      <div className="hidden md:flex h-full w-full">
+        <ResizablePrimitive.PanelGroup
+          data-slot="resizable-panel-group"
+          className={cn("flex h-full w-full", className)}
+          direction={direction}
+          {...props}
+        >
+          {children}
+        </ResizablePrimitive.PanelGroup>
+      </div>
+
+      {/* Mobile version */}
+      <div className="md:hidden flex h-full w-full">
+        <ResizablePrimitive.PanelGroup
+          data-slot="resizable-panel-group"
+          className={cn("flex h-full w-full", className)}
+          direction={mobileDirection}
+          {...props}
+        >
+          {children}
+        </ResizablePrimitive.PanelGroup>
+      </div>
+    </>
+  );
 }
 
 function ResizablePanel({
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.Panel>) {
-  return <ResizablePrimitive.Panel data-slot="resizable-panel" {...props} />
+  return <ResizablePrimitive.Panel data-slot="resizable-panel" {...props} />;
 }
 
 function ResizableHandle({
@@ -39,7 +62,7 @@ function ResizableHandle({
   className,
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
-  withHandle?: boolean
+  withHandle?: boolean;
 }) {
   return (
     <ResizablePrimitive.PanelResizeHandle
@@ -56,7 +79,7 @@ function ResizableHandle({
         </div>
       )}
     </ResizablePrimitive.PanelResizeHandle>
-  )
+  );
 }
 
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle }
+export { ResizablePanelGroup, ResizablePanel, ResizableHandle };

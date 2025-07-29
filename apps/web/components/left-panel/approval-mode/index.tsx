@@ -21,11 +21,11 @@ export default function ApprovalMode() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const defaultRegexExpressionId =
+  const currentRegexExpressionId =
     searchParams.get("regexExpressionId") ?? undefined;
 
   const currentExpression = regexExpressions.find(
-    (expr) => expr.id === defaultRegexExpressionId
+    (expr) => expr.id === currentRegexExpressionId
   );
 
   const handleApprove = () => {
@@ -43,28 +43,35 @@ export default function ApprovalMode() {
 
   return (
     <div className="flex flex-col gap-2">
-      <Label htmlFor="regexExpression">Regex Expression</Label>
-      <Select
-        onValueChange={handleRegexExpressionChange}
-        defaultValue={currentExpression?.id}
-      >
-        <SelectTrigger className="w-full" id="regexExpression">
-          <SelectValue placeholder="Select a regex expression" />
-        </SelectTrigger>
-        <SelectContent>
-          {regexExpressions.map((regex) => (
-            <SelectItem key={regex.id} value={regex.id}>
-              {regex.name} {regex.isApproved ? "✅" : ""}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {defaultRegexExpressionId && (
+      {regexExpressions.length ? (
+        <>
+          <Label htmlFor="regexExpression">Regex Expression</Label>
+          <Select
+            onValueChange={handleRegexExpressionChange}
+            defaultValue={currentExpression?.id}
+          >
+            <SelectTrigger className="w-full" id="regexExpression">
+              <SelectValue placeholder="Select a regex expression" />
+            </SelectTrigger>
+            <SelectContent>
+              {regexExpressions.map((regex) => (
+                <SelectItem key={regex.id} value={regex.id}>
+                  {regex.name} {regex.isApproved ? "✅" : ""}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </>
+      ) : (
         <div className="flex flex-col gap-2">
-          <MatchingExpressions
-            defaultRegexExpressionId={defaultRegexExpressionId}
-          />
+          <p>No regex expressions found.</p>
+          <p>Please create a regex expression in Edit tab.</p>
+        </div>
+      )}
+
+      {currentExpression && (
+        <div className="flex flex-col gap-2">
+          <MatchingExpressions regexExpressionId={currentExpression.id} />
 
           {currentExpression && !currentExpression.isApproved && (
             <Button onClick={handleApprove} className="mt-2">

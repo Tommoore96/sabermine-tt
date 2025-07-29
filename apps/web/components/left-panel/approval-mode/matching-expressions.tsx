@@ -4,16 +4,16 @@ import { useRegexStore } from "@/hooks/use-regex-store";
 import { Card } from "@workspace/ui/components/card";
 
 export type MatchingExpressionsProps = {
-  defaultRegexExpressionId: string;
+  regexExpressionId: string;
 };
 
 export default function MatchingExpressions({
-  defaultRegexExpressionId,
+  regexExpressionId,
 }: MatchingExpressionsProps) {
   const originalText = useRegexStore((state) => state.originalText);
 
   const currentRegexExpression = useRegexStore((state) =>
-    state.expressions.find((regex) => regex.id === defaultRegexExpressionId)
+    state.expressions.find((regex) => regex.id === regexExpressionId)
   );
 
   if (!currentRegexExpression) {

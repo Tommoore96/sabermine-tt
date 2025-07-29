@@ -27,10 +27,6 @@ export default function TextDisplay({
     setText(lorem);
   }, []);
 
-  if (!regexExpression && !!regexExpressionId) {
-    return <div>No regex expression found</div>;
-  }
-
   return (
     <Textarea
       className="w-full min-h-full"
