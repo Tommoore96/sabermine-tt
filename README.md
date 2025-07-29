@@ -1,5 +1,7 @@
 # Sabermine Tech Test
 
+For my reasoning on the tech stack and component patterns I chose, please see the [reasoning](./REASONING.md) file.
+
 ## Usage
 
 This project uses version 10 of pnpm as a package manager. If you don't already have it installed please follow their
@@ -66,5 +68,3 @@ To use the components in your app, import them from the `ui` package.
 ```tsx
 import { Button } from "@workspace/ui/components/button";
 ```
-
-## For my reasoning on the tech stack and component patterns, please see the [reasoning](./REASONING.md) file.
