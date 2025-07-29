@@ -6,22 +6,16 @@ import {
   ResizablePanelGroup,
 } from "@workspace/ui/components/resizable";
 
-interface PageProps {
-  searchParams: Promise<{ regexExpressionId?: string }>;
-}
-
-export default async function Page({ searchParams }: PageProps) {
-  const { regexExpressionId } = await searchParams;
-
+export default async function Page() {
   return (
     <div className="flex items-center h-svh p-4">
-      <ResizablePanelGroup direction="horizontal" className="w-full h-full">
-        <ResizablePanel className="pr-4" defaultSize={40}>
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel defaultSize={40} minSize={25} collapsible>
           <LeftPanel />
         </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel className="pl-4" defaultSize={60}>
-          <RightPanel regexExpressionId={regexExpressionId} />
+        <ResizableHandle withHandle className="my-4 md:mx-4" />
+        <ResizablePanel defaultSize={60} minSize={25} collapsible>
+          <RightPanel />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

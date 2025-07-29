@@ -11,25 +11,13 @@ const lorem = loremIpsum({
   format: "plain",
 });
 
-export default function TextDisplay({
-  regexExpressionId,
-}: {
-  regexExpressionId: string | undefined;
-}) {
-  const regexExpression = useRegexStore((state) =>
-    state.expressions.find((expression) => expression.id === regexExpressionId)
-  );
-
+export default function TextDisplay() {
   const originalText = useRegexStore((state) => state.originalText);
   const setText = useRegexStore((state) => state.setText);
 
   useEffect(() => {
     setText(lorem);
   }, []);
-
-  if (!regexExpression && !!regexExpressionId) {
-    return <div>No regex expression found</div>;
-  }
 
   return (
     <Textarea

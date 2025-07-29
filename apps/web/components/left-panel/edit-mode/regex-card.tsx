@@ -18,6 +18,7 @@ import {
 import { MoreVerticalIcon } from "lucide-react";
 import { useState } from "react";
 import RegexForm from "./regex-form";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export type RegexCardProps = {
   expression: RegexExpression;
@@ -26,6 +27,12 @@ export type RegexCardProps = {
 export default function RegexCard({ expression }: RegexCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const deleteExpression = useRegexStore((state) => state.deleteExpression);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const currentRegexExpressionId =
+    searchParams.get("regexExpressionId") ?? undefined;
+
   return (
     <Card key={expression.id} className="small">
       {isEditing ? (
@@ -63,6 +70,9 @@ export default function RegexCard({ expression }: RegexCardProps) {
                       variant="ghost"
                       onClick={() => {
                         deleteExpression(expression.id);
+                        if (currentRegexExpressionId === expression.id) {
+                          router.push(`/`);
+                        }
                       }}
                     >
                       Delete
